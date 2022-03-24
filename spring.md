@@ -171,3 +171,107 @@ The registerBean() has four parameters, as
 
 # The Spring context: Wiring beans
 
+For implement a relationship between two instance : Suppose we have a instance Person and we need to
+establish a relation between Parrot.class.provide a has-A relation betwwen Person and Parrot.
+So I'm define a Person class .
+```java
+public class Person {
+    private String personName;
+    private String parrotName;
+
+    public void setParrotName(String parrotName) {
+        this.parrotName = parrotName;
+    }
+
+    public String getParrotName() {
+        return parrotName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+}
+
+
+```   
+Here Person.class holdes member variable, we tried to establish a HAS-A relation between Person and Parrot class
+> Define Person bean and Parrot bean in Configuration (ConfigForProject.class)
+
+```java
+@Configuration
+@ComponentScan(basePackages = "main")
+public class ConfigForProject {
+    @Bean(name = "Mushku")
+    Parrot returnParrot(){
+        Parrot p = new Parrot();
+        p.setParrotName("Mis Mushku \uD83E\uDD9C");
+        return p;
+    }
+    @Bean(name="Chikku")
+    Person getPerson(){
+        Person chikku = new Person();
+        chikku.setPersonName("Mr. Chikku");
+        return chikku;
+    }
+}
+```
+> Definition in Main.class
+```java
+public class Main {
+    public static void main(String[] args) {
+        // create a spring context
+        var context = new AnnotationConfigApplicationContext(ConfigForProject.class);
+        Parrot p = context.getBean(Parrot.class);
+        Person c = context.getBean(Person.class);
+        System.out.println(p.getParrotName()); \\ Mis Mushku 🦜
+        System.out.println(c.getPersonName()); \\ Mr. Chikku
+        System.out.println(c.getParrotName()); \\ null
+    }
+}
+```
+From above code u find out that System.out.println(c.getParrotName()); is null, 
+The relationship between the person and the parrot isn’t established.
+
+### Wiring the beans using a direct method call between the @Bean methods
+
+We establish the relationship between the beans using direct wiring. This approach implies
+calling the method that returns the bean you want to set directly. You need to call this method from the
+one that defines the bean for which you set the dependency.
+
+```java
+
+// ConfigForProject.class
+    @Bean(name = "Mushku")
+    Parrot returnParrot(){
+        Parrot p = new Parrot();
+        p.setParrotName("Mis Mushku \uD83E\uDD9C");
+        return p;
+    }
+
+    @Bean(name="Chikku")
+    Person getPerson(){
+        Person chikku = new Person();
+        chikku.setPersonName("Mr. Chikku");
+        chikku.setParrotName(returnParrot()); // its return Parrot object , so setParrotname changes
+        return chikku;
+    }
+// Person.class
+ public void setParrotName(Parrot parrotName) {
+        this.parrotName = parrotName.getParrotName();
+    }
+//main.class
+
+Parrot p = context.getBean(Parrot.class);
+Person c = context.getBean(Person.class);
+System.out.println(p.getParrotName()); // Mis Mushku 🦜
+System.out.println(c.getPersonName()); // Mr. Chikku
+System.out.println(c.getParrotName()); // Mis Mushku 🦜
+   
+```
+
+### Wiring the beans using the @Bean annotated method’s parameters
