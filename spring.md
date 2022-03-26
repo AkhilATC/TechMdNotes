@@ -275,3 +275,73 @@ System.out.println(c.getParrotName()); // Mis Mushku 🦜
 ```
 
 ### Wiring the beans using the @Bean annotated method’s parameters
+QAn alternative approach to directly calling the @Bean method.
+Instead of directly calling the method that defines the bean we wish to refer to, we add a
+parameter to the method of the corresponding type of object, and we rely on Spring to
+provide us a value through that parameter
+```java
+// Configuration class , expecting a Parrot object as parameter
+  @Bean(name="Chikku")
+    Person getPerson(Parrot p){
+        Person chikku = new Person();
+        chikku.setPersonName("Mr. Chikku");
+        chikku.setParrotName(p);
+        return chikku;
+    }
+```
+
+DI(Dependancy injection) is a technique involving the framework setting a value into a specific field or parameter.
+
+### Using the @Autowired annotation to inject beans
+
+Another approach used to create a link between beans in the Spring context.there are three ways we can use the
+@Autowired annotation:
+
+1. Using @Autowired to inject the values through the class fields
+2. Using @Autowired to inject the values through the constructor
+3. Using dependency injection through the setter
+
+#### Using @Autowired to inject the values through the class fields
+
+First we annotate Person class with steriotype annotation, @component that we already did,
+second we definne a class feild/member fo Parrot instance, and provide a autowired annotation.
+__@Autowired__ annotation will provide a value for feild, This way we can establish a relationship between beans.
+```java
+@Component //steriotype annotation
+public class Person {
+    private String personName;
+
+    @Autowired
+    private Parrot parrot; // Annotating the field with @Autowired, 
+    //we instruct Spring to inject an appropriate value from its context.
+
+    
+    public Parrot getParrot() {
+        return parrot;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+}
+
+```
+#### Using @Autowired to inject the values through the constructor
+
+```java
+Component
+public class Person {
+    private String personName;
+    private final Parrot parrot;
+
+    @Autowired
+    public Person(Parrot p) {
+        this.parrot = p;
+    }
+
+```
