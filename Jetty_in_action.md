@@ -36,3 +36,42 @@ AbstractHandler class override handle method, which includes following parameter
 2. request – the Jetty mutable request object
 3. httpServletRequest – the immutable request object
 4. httpServletResponse – the response, which may have been wrapped by a filter or a servlet.
+
+```java
+
+public class ServerInit {
+
+    public class HelloServer extends AbstractHandler {
+    final String msg;
+    public HelloServer(){
+
+        this("Hello ---");
+        System.out.println("ddddd");
+    }
+    public HelloServer(String hang){
+        this.msg = hang;
+        }
+        @Override
+        public void handle(String target,
+                           Request request,
+                           HttpServletRequest httpServletRequest,
+                           HttpServletResponse httpServletResponse) throws IOException, ServletException {
+            System.out.println("fffffffff");
+            httpServletResponse.setContentType("text/html; charset=utf-8");
+            httpServletResponse.setStatus(200);
+            PrintWriter outResp = httpServletResponse.getWriter();
+            outResp.println(msg);
+            request.setHandled(true);
+
+
+        }
+    }
+    public static void main(String[] args) throws Exception {
+        Server jettyServer  = new Server(9001);
+        jettyServer.start();
+        jettyServer.dumpStdErr();
+        jettyServer.join();
+
+    }
+}
+```
