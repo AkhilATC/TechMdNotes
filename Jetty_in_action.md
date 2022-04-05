@@ -75,3 +75,60 @@ public class ServerInit {
     }
 }
 ```
+Example
+```java
+public class ServerInit {
+
+
+    public  ServerInit() {
+
+            Server jettyServer  = new Server(8081);
+            // Session Handler
+            HelloServer handler = new HelloServer();
+            SessionHandler sh = new SessionHandler();
+            sh.setHandler(handler);
+            jettyServer.setHandler(sh); // setHandler 
+
+        try {
+            jettyServer.start();
+            jettyServer.join();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) throws Exception {
+
+        new ServerInit();
+
+    }
+}
+
+class HelloServer extends AbstractHandler {
+    final String msg;
+    public HelloServer(){
+
+        this("--Abstract handler ---");
+        System.out.println("Abstract");
+    }
+    public HelloServer(String hang){
+        this.msg = hang;
+    }
+
+    @Override
+    public void handle(String target,
+                       Request request,
+                       HttpServletRequest httpServletRequest,
+                       HttpServletResponse httpServletResponse) throws IOException, ServletException {
+        System.out.println("inside handle");
+        System.out.println(target);
+        httpServletResponse.setContentType("text/html; charset=utf-8");
+        httpServletResponse.setStatus(200);
+
+        PrintWriter outResp = httpServletResponse.getWriter();
+        outResp.println(msg);
+        request.setHandled(true);
+    }
+}
+}
+```
