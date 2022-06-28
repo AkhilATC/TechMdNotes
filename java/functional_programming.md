@@ -85,7 +85,7 @@ public class BiFunctional {
 ```
 
 
-## Consumer<T>
+## Consumer< T >
 
 Accept single input argument and return no result
 
@@ -198,7 +198,7 @@ public class ConsumerFunctional {
     }
 }
 ```
-## Predicate<T>
+## Predicate< T >
 
 ```java
 package FunctionalProgramming;
@@ -226,7 +226,7 @@ public class PredicateFunctional {
 }
 ```
 
-## Supplier<T>
+## Supplier< T >
 
 You can return any kind of data, for example custom class, object,map,list;
 
