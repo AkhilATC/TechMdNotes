@@ -6,8 +6,8 @@ and return;
 
 ## Function<T,R>
 
-T - the type of the input to the function
-R - the type of the result of the function
+- T - the type of the input to the function
+- R - the type of the result of the function
 
 ```java
 package FunctionalProgramming;
