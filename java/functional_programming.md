@@ -84,6 +84,7 @@ public class BiFunctional {
 }
 ```
 
+
 ## Consumer<T>
 
 Accept single input argument and return no result
@@ -139,8 +140,8 @@ public class ConsumerFunctional {
 
     }
 }
+    
 ```
-
 ## BiConsumer<T,U>
 
 ```java
