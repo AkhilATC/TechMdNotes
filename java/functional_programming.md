@@ -61,9 +61,9 @@ public class Groot {
 ## BiFunction<T,U,R>
  
 
-T - the type of the first argument to the function
-U - the type of the second argument to the function
-R - the type of the result of the function
+- T - the type of the first argument to the function
+- U - the type of the second argument to the function
+- R - the type of the result of the function
 
 ```java
 package FunctionalProgramming;
