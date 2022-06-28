@@ -197,3 +197,55 @@ public class ConsumerFunctional {
     }
 }
 ```
+## Predicate<T>
+
+```java
+package FunctionalProgramming;
+
+import java.util.List;
+import java.util.function.Predicate;
+
+public class PredicateFunctional {
+
+    public static List<String> avengers = List.of("Thor", "Iron man", "Captain america");
+
+    public static void main(String[] args) {
+        System.out.println(isGodOfThunder.test("Thor"));
+        System.out.println(isGodOfThunder.and(isString).test("Thor"));
+    }
+
+    static Predicate<String> isGodOfThunder = p -> {
+        return avengers.contains(p) && p.startsWith("T");
+    };
+    static Predicate<String> isString = p -> {
+        return p.length()>0;
+    };
+
+
+}
+```
+
+## Supplier<T>
+
+You can return any kind of data, for example custom class, object,map,list;
+
+```java
+
+package FunctionalProgramming;
+
+import java.util.function.Supplier;
+
+public class SupplierFunctional {
+
+    public static void main(String[] args) {
+        // Supplier return results
+        System.out.println(getUrlForBrowse.get());
+    }
+    // u can return any kind of values-> here we return String Value
+    static Supplier<String> getUrlForBrowse = () ->{
+        return "http://github/AkhilATC/";
+    };
+
+}
+
+```
