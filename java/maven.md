@@ -3,7 +3,7 @@
 ## create a mvn 
 We can create a simple maven example by executing the archetype:generate command of mvn tool.
 
-
+- ~/.m2/repository
 ```
     mvn archetype:generate 
     -DgroupId=groupid 
