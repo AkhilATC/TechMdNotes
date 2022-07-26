@@ -2,6 +2,41 @@
 - protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto
 
 ```
+"id: \"1\"\n" +\
+                "imp {\n" +\
+                "  id: \"1\"\n" +\
+                "  banner {\n" +\
+                "    w: 640\n" +\
+                "    h: 480\n" +\
+                "    pos: UNKNOWN\n" +\
+                "    mimes: \"image/jpg\"\n" +\
+                "  }\n" +\
+                "  instl: false\n" +\
+                "}\n" +\
+                "site {\n" +\
+                "  id: \"99201\"\n" +\
+                "  name: \"rtb4free\"\n" +\
+                "  domain: \"rtb4free.com\"\n" +\
+                "  cat: \"IAB1\"\n" +\
+                "  cat: \"IAB2\"\n" +\
+                "  cat: \"IAB3\"\n" +\
+                "  keywords: \"radiation\"\n" +\
+                "}\n" +\
+                "device {\n" +\
+                "  ip: \"166.137.138.18\"\n" +\
+                "  geo {\n" +\
+                "    lat: 42.378\n" +\
+                "    lon: -71.227\n" +\
+                "    country: \"USA\"\n" +\
+                "  }\n" +\
+                "  make: \"Apple\"\n" +\
+                "  model: \"iPhone\"\n" +\
+                "}\n" +\
+                "at: SECOND_PRICE";
+		
+```
+
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
