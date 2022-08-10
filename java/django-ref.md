@@ -1,5 +1,5 @@
-- create new project : __django-admin startproject <project-name>__ 
-- create a new project without directory : __ django-admin startproject <project-name> .__
+- create new project : __django-admin startproject project-name __ 
+- create a new project without directory : __django-admin startproject project-name .__
 - run server : __python manage.py runserver__ (pass port number also)
 - create new app : __python manage.py startapp <app_name>__
 - make migrations : __python manage.py makemigrations__
