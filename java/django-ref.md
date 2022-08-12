@@ -1,0 +1,6 @@
+- create new project : __django-admin startproject project-name__ 
+- create a new project without directory : __django-admin startproject project-name .__
+- run server : __python manage.py runserver__ (pass port number also)
+- create new app : __python manage.py startapp <app_name>__
+- make migrations : __python manage.py makemigrations__
+- execute migrations : __python manage.py migrate__

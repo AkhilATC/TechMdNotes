@@ -333,3 +333,176 @@ technology and create a suitable application.
 > java -jar target/(generatedjar).jar
 
 
+# Understanding Spring Boot and Spring MVC
+
+## 🎯 Implementing a web app with Spring MVC
+
+To add a web page to your app, you follow two steps:
+1. Write an HTML document with the content you want to be displayed by the browser.
+2. Write a controller with an action for the web page created at point 1.
+
+
+> The second step you take is writing a controller with a method that links the HTTP request
+> to the page you want your app to provide in response. The controller is a component of the
+> web app that contains methods (often named actions) executed for a specific HTTP request.
+
+```java
+// home.html is located in resource/static folder
+@Controller
+public class WebInterfaceController {
+
+    @RequestMapping("/render")
+    public String renderHomeHtml(){
+        return "home.html";
+    }
+}
+```
+- We annotate the class with the @Controller stereotype annotation.
+- We use the @RequestMapping annotation to associate the action with an HTTP request path.
+- We return the HTML document name that contains the details we want the browser to display.
+
+## 🎯 Implementing web apps with a dynamic view
+
+1. Controller not only to return the view name but somehow also send data to the view. 
+The view will incorporate this data to define the HTTP response.
+
+
+2. the template engine is a dependency that allows us to easily send data from the controller to
+the view and display this data in a specific way.(template engine named Thymeleaf)
+
+```
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+```
+
+- Controller uses model and add attributes , that later send to view
+- This parameter of type __Model__ stores the data we want the controller to send to the view.
+- In this __Model__ instance, we add the values we want to send to the view and identify each of them with a unique name.
+- To add a new value that the controller sends to the view, we call the addAttribute() method.
+- Write your dynamic html in resource/template folder
+- Defines the Thymeleaf “th” prefix in html  (xmlns:th="http://www.thymeleaf.org")
+- Uses the “th” prefix to use the values sent by the controller (<span th:text="${User}"></span>!</h1>)
+
+```html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+<h1>Welcome
+    <span th:text="${User}"></span>!</h1>
+</body>
+</html>
+
+```
+#### Getting a value through a request parameter
+
+```java
+// http://localhost:8080/render?userName=Rayan
+@RequestMapping("/render")
+    public String renderHomeHtml(
+            @RequestParam String userName,
+            Model page){
+        page.addAttribute("User",userName);
+        return "home.html";
+    }
+```
+
+Above method takes two parameters:
+1. Model page
+2. @RequestParam String userName
+3. A request parameter is mandatory by default.
+4. If you wish the value to be optional then uses @RequestParam(optional=true) .
+
+#### Getting a value through a request path
+
+```java
+ @RequestMapping("/render/{id}")
+    public String renderHomeHtmlWithPathValue(
+            @PathVariable String id,
+            Model page
+    ){
+        page.addAttribute("User",id);
+        return "home.html";
+    }
+```
+1. To define a path variable, you assign it a name and put it in the path between curly braces.
+2. You mark the parameter where you want to get the path variable value with the @PathVariable annotation. The name of the parameter must
+be the same as the name of the variable in the path.
+
+## 🎯 Implementing REST services
+
+we annotate the controller class with the __@Controller__ stereotype
+annotation. This way, an instance of the class becomes a bean in the Spring context, and
+Spring MVC knows this is a controller that maps its methods to specific HTTP paths.
+
+- ℹ️ 200 OK if no exception was thrown on the server side while processing the request.
+- ℹ️ 404 Not Found if the requested resource doesn’t exist.
+- ℹ️ 400 Bad Request if a part of the request could not be matched with the way the server
+expected the data.
+- ℹ️ 500 Error on server if an exception was thrown on the server side for any reason while
+processing the request. Usually, for this kind of exception, the client can’t do anything,
+and it’s expected someone should solve the problem on the backend.
+
+__@GetMapping__ annotation to specify the action path and HTTP method.
+
+__@ResponseBody__ annotation tells the dispatcher servlet that the controller’s action doesn’t
+return a view name but the data sent directly in the HTTP response.
+
+```java
+@Controller
+public class RestInterface {
+
+    @RequestMapping(value="/rest",method = RequestMethod.GET)
+    @ResponseBody
+    public String responseRest(){
+        return "hello";
+    }
+}
+```
+❶ We use the __@Controller__ annotation to mark the class as a Spring MVC controller
+❷ We use the __@GetMapping__ annotation to associate the GET HTTP method and a path with the controller’s action.
+❸ We use the __@ResponseBody__ annotation to inform the dispatcher servlet that this method doesn’t return a view name but the HTTP response
+directly.
+
+Spring offers the __@RestController__ annotation, a combination of __@Controller__ and __@ResponseBody__ .
+You use __@RestController__ to instruct Spring that all the controller’s actions are REST endpoints
+
+#### Sending objects as a response body
+
+Data Transfer Object (DTO)
+- First define a DTO class
+```java
+@Data
+public class KingResponseObject {
+    private String kingName;
+    private String clanName;
+
+    public KingResponseObject(String kingName, String clanName) {
+        this.kingName = kingName;
+        this.clanName = clanName;
+    }  
+
+}
+```
+- RestController class
+```java
+
+@Controller
+public class RestInterface {
+
+    @RequestMapping(value="/rest",method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity responseRest(){
+        KingResponseObject kingRespOb = new KingResponseObject("Mashkal soya",
+                "Mishuth");
+        return new ResponseEntity(kingRespOb, HttpStatus.OK);
+    }
+}
+```
+
+

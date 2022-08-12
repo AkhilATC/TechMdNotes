@@ -5,6 +5,8 @@ Streams:
 2. System. in : standard input stream
 3. System.err: standard error stream
 
+
+<!-- [whatever]:: https://petewan.com/blog-post/install-and-manage-multiple-java-jdk-and-jre-versions-on-ubuntu-20-04/ -->
 ### FileOutputStream class
 
 Java FileOutputStream is an output stream used for writing data to a file
