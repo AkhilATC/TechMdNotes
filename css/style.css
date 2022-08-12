@@ -1,0 +1,117 @@
+/*
+css style sheet
+*/
+body{
+
+	background: linear-gradient(to right,white,greenyellow,greenyellow);
+	/* background: url("static/imgroot3.jpeg");
+	background-repeat: no-repeat;
+	background-size: cover; 
+	background: rgb(208, 219, 218);  bg color changed */
+
+
+}
+
+.title{
+
+	color: darkseagreen;
+}
+.sub-title:hover{
+
+	color: darkseagreen; /* example of psuedo selector */
+}
+
+/* psuedo selector applied on li-2th element */
+li:nth-child(2){
+	color: indianred;
+	font: fantasy;
+}
+
+/**
+ *  advanced selector (tag + another tag)
+ * precedence tag + css tag 
+ *
+ *  */
+
+p + a {
+
+	color: skyblue;
+	font-family: monospace;
+	font-size: 30px;
+	background-color: yellow;
+}
+/** (precedance-tag ~ successor-tag) here precedance tag and successor tag have a common parent ***/
+/*p ~ img {
+
+	width: 10%;
+	border-style: solid ;
+	border-color: darkseagreen;
+}*/
+/** parent tag > child tag **/
+ol > li {
+	font-family: cursive;
+	font-weight: 100;
+	color: rebeccapurple;
+}
+/* apply style to all img having url prefix "static" */
+img[src^=static]{
+
+	width: 10%;
+	border-style: solid ;
+	border-color: darkseagreen;
+}
+
+.cap-txt{
+
+	text-transform: capitalize;
+	text-align: center;
+	font-family: monospace;
+	font-style: oblique;
+	font-size: 3em;
+	color: rgb(18, 2, 82);
+}
+#groot-img-cntr{
+	border: 10px solid black;
+	padding: 20px;
+	margin: 30px ;
+}
+.down-text{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	border: 3px solid black;
+
+
+}
+#groot-down-text{
+	font-size: 2em;
+	font-family: fantasy;
+	color: red;
+	margin: 20px;
+	align-items: baseline;
+	/* float: right; float element to right */
+}
+.grid-groot{
+	display: grid;
+	margin: 10px;
+	width: 30%;
+	grid-template-columns: auto auto auto ;
+	grid-template-rows: auto auto;
+	/*justify-content: flex-start;*/
+	/*align-content: end;*/
+	justify-content:  space-between;
+
+}
+.grid-item{
+	background: url("static/I_Am_Groot_logo.jpeg");
+	opacity: 1;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-family: monospace;
+	font-size: 5em;
+	text-align: center;
+	color: red;
+	margin: 10px;
+}
